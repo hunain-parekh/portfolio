@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.hunain.portfolio.model.Class;
 import com.hunain.portfolio.services.ClassRepository;
-import com.hunain.portfolio.services.StudentRepository;
 
 @RestController
 @RequestMapping("/api")
 public class ClassController {
     @Autowired
     private ClassRepository classRepo;
-    @Autowired
-    private StudentRepository studentRepo;
 
     @GetMapping("/classes")
     public List<Class> listAll() {
