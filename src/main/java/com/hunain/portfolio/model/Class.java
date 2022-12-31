@@ -1,5 +1,10 @@
 package com.hunain.portfolio.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +12,7 @@ import lombok.*;
 @Table(name = "classes")
 @Getter
 @Setter
-public class Class {
+public class Class{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,7 +21,9 @@ public class Class {
     private String semester_taken;
     private String grade;
 
-    @ManyToOne
-    @JoinColumn(name="student_id",referencedColumnName="id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="student_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Student student;
 }

@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.hunain.portfolio.model.Class;
-import com.hunain.portfolio.model.Student;
 import com.hunain.portfolio.services.ClassRepository;
 import com.hunain.portfolio.services.StudentRepository;
 
 @RestController
+@RequestMapping("/api")
 public class ClassController {
     @Autowired
     private ClassRepository classRepo;
-
     @Autowired
     private StudentRepository studentRepo;
 
@@ -37,9 +37,8 @@ public class ClassController {
         return classRepo.findById(class_id).orElse(null);
     }
 
-    @GetMapping("/student/{student_id}")
+    @GetMapping("/students/{student_id}/classes")
     public List<Class> getByStudentId(@PathVariable Integer student_id){
-        Student student = studentRepo.findById(student_id).orElse(null);
-        return classRepo.findByStudent(student);
+        return classRepo.findByStudentId(student_id);
     }
 }
